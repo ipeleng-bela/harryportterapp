@@ -1,14 +1,28 @@
 // API key
 const key = '$2a$10$1JEnmtEF417yBaFZcr51qukRjaKv8d5toEG5DKP/IUZWIVwfsaF7y';co 
 
-// Characters list
+/ create the list where we will place our characters in
 const ul = document.getElementById('characters');
 
-
-//Url Get Harry Portter characters
+// create URL to get all Harry Potter characters
 const url = new URL('https://www.potterapi.com/v1/characters/'), params = {key: key, house: 'Slytherin'}
 
-Object.keys.then(function(data) {
+Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+// create the type of element on page as passed in the parameters
+function createNode(element) {
+  return document.createElement(element);
+}
+
+// Append the second parameter(element) to the first one
+function append(parent, el) {
+  return parent.appendChild(el);
+}
+
+// make API request using Fetch API
+fetch(url, {key: key})
+  .then((resp) => resp.json()) // Transform the data into json
+  .then(function(data) {
   // Get the results
   let characters = data;
   // console.log(characters);
